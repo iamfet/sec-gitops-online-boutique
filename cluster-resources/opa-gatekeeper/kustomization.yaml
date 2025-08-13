@@ -2,6 +2,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - block-nodeport-services-template.yaml
-  - nodeport-constraint.yaml
+  #- nodeport-constraint.yaml
   - block-privelege-container-template.yaml
-  - privelege-container-constraint.yaml
+  #- privelege-container-constraint.yaml
