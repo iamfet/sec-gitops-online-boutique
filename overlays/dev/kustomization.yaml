@@ -1,0 +1,40 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: online-boutique
+resources:
+  - ../../base
+
+images:
+  - name: adservice-image
+    newName: iamfet/adservice
+    newTag: v15797358403
+  - name: cartservice-image
+    newName: iamfet/cartservice
+    newTag: v15797358403
+  - name: checkoutservice-image
+    newName: iamfet/checkoutservice
+    newTag: v15797358403
+  - name: currencyservice-image
+    newName: iamfet/currencyservice
+    newTag: v15797358403
+  - name: emailservice-image
+    newName: iamfet/emailservice
+    newTag: v15797358403
+  - name: frontend-image
+    newName: iamfet/frontend
+    newTag: v15797358403
+  - name: paymentservice-image
+    newName: iamfet/paymentservice
+    newTag: v15797358403
+  - name: productcatalogservice-image
+    newName: iamfet/productcatalogservice
+    newTag: v15799764690
+  - name: recommendationservice-image
+    newName: iamfet/recommendationservice
+    newTag: v15797358403
+  - name: redis-image
+    newName: redis
+    newTag: alpine
+  - name: shippingservice-image
+    newName: iamfet/shippingservice
+    newTag: v15797358403
