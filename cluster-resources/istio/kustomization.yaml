@@ -2,6 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - argocd-authorization-policy.yaml
+  - defectdojo-authorization-policy.yaml
   - frontend-authorization-policy.yaml
   - gateway.yaml
   - onlineboutique-peer-authentication
