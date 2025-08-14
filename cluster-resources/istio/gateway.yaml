@@ -1,0 +1,27 @@
+#wildcard configuration
+apiVersion: networking.istio.io/v1
+kind: Gateway
+metadata:
+  name: fetdevops-gateway
+  namespace: istio-ingress
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - '*.fetdevops.com'
+#    tls:
+#      httpsRedirect: true
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    hosts:
+    - '*.fetdevops.com'
+    tls:
+      mode: SIMPLE
+      credentialName: fetdevops-tls-cert # Secret created by cert-manager
