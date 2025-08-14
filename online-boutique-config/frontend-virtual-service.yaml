@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: frontend
+  namespace: online-boutique
+spec:
+  hosts:
+  - "online.fetdevops.com"
+  gateways:
+  - istio-ingress/fetdevops-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: frontend.online-boutique.svc.cluster.local
+        port:
+          number: 80
