@@ -1,0 +1,134 @@
+# DefectDojo Configuration
+createSecret: false
+
+# Application settings
+host: defectdojo.fetdevops.com
+site_url: https://defectdojo.fetdevops.com
+
+# Django configuration - Personal project sizing
+django:
+  ingress:
+    enabled: false
+  uwsgi:
+    enable: true
+    processes: 1
+    threads: 2
+  nginx:
+    enabled: true
+  resources:
+    requests:
+      memory: 512Mi
+      cpu: 100m
+    limits:
+      memory: 1Gi
+      cpu: 500m
+
+# Database configuration
+database:
+  engine: django.db.backends.postgresql
+  name: defectdojo
+  user: defectdojo
+  password:
+    from_secret: true
+    key: DD_DATABASE_PASSWORD
+  host: defectdojo-postgresql
+  port: 5432
+
+# PostgreSQL subchart - Personal project sizing
+postgresql:
+  enabled: true
+  auth:
+    username: defectdojo
+    database: defectdojo
+    existingSecret: defectdojo-secrets
+    secretKeys:
+      adminPasswordKey: DD_DATABASE_PASSWORD
+      userPasswordKey: DD_DATABASE_PASSWORD
+  primary:
+    persistence:
+      enabled: true
+      storageClass: gp2
+      size: 2Gi
+    resources:
+      requests:
+        memory: 256Mi
+        cpu: 100m
+      limits:
+        memory: 512Mi
+        cpu: 300m
+
+# Redis configuration - Personal project sizing
+redis:
+  enabled: true
+  auth:
+    enabled: true
+    existingSecret: defectdojo-secrets
+    existingSecretPasswordKey: DD_REDIS_PASSWORD
+  master:
+    persistence:
+      enabled: true
+      storageClass: gp2
+      size: 2Gi
+    resources:
+      requests:
+        memory: 64Mi
+        cpu: 50m
+      limits:
+        memory: 128Mi
+        cpu: 100m
+
+# Celery configuration - Personal project sizing
+celery:
+  broker: redis
+  beat:
+    enabled: true
+    resources:
+      requests:
+        memory: 128Mi
+        cpu: 50m
+      limits:
+        memory: 256Mi
+        cpu: 100m
+  worker:
+    enabled: true
+    replicas: 1
+    resources:
+      requests:
+        memory: 256Mi
+        cpu: 100m
+      limits:
+        memory: 512Mi
+        cpu: 300m
+
+# Admin user configuration
+admin:
+  user: admin
+  password:
+    from_secret: true
+    key: DD_ADMIN_PASSWORD
+
+# Secret key configuration
+secretKey:
+  from_secret: true
+  key: DD_SECRET_KEY
+
+# Initializer configuration - Increased resources for faster init
+initializer:
+  run: true
+  keepSeconds: 60
+  resources:
+    requests:
+      memory: 512Mi
+      cpu: 200m
+    limits:
+      memory: 1Gi
+      cpu: 500m
+
+# Disable subchart secret creation
+createRabbitMqSecret: false
+createRedisSecret: false
+createPostgresqlSecret: false
+
+# Global settings
+global:
+  storageClass: gp2
