@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: istio-proxy-servicemonitor
+  namespace: monitoring
+  labels:
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: online-boutique
+  namespaceSelector:
+    matchNames:
+      - online-boutique
+  endpoints:
+    - port: http-envoy-prom
+      interval: 15s
+      path: /stats/prometheus
