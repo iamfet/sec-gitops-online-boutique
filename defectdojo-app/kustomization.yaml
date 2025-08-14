@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: defectdojo
+
+resources:
+  # External Secrets for credential management
+  - defectdojo-external-secret.yaml
+  - defectdojo-secret.yaml
+  - defectdojo-redis-secret.yaml
+  # Istio configuration
+  - defectdojo-virtual-service.yaml
+
+helmCharts:
+  - name: defectdojo
+    repo: https://raw.githubusercontent.com/DefectDojo/django-DefectDojo/helm-charts
+    version: 1.6.201
+    valuesFile: values.yaml
+    releaseName: defectdojo
+    namespace: defectdojo
