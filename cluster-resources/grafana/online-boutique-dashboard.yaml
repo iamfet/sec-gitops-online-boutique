@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: online-boutique-dashboard
+  namespace: monitoring
+  labels:
+    grafana_dashboard: "1"
+data:
+  online-boutique.json: |
+    {
+      "id": null,
+      "title": "Online Boutique Application",
+      "tags": ["online-boutique"],
+      "timezone": "browser",
+      "panels": [
+        {
+          "id": 1,
+          "title": "Request Rate",
+          "type": "stat",
+          "gridPos": {"h": 8, "w": 8, "x": 0, "y": 0},
+          "targets": [
+            {
+              "expr": "up{job=\"istiod\"}",
+              "legendFormat": "Istio Control Plane",
+              "refId": "A"
+            }
+          ]
+        }
+      ],
+      "time": {
+        "from": "now-1h",
+        "to": "now"
+      },
+      "refresh": "5s",
+      "version": 1
+    }
