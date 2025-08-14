@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: online-boutique
 resources:
   - ../../base
+  - ../../online-boutique-config
 
 images:
   - name: adservice-image
