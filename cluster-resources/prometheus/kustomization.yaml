@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - argocd-servicemonitor.yaml
+  - external-secrets-servicemonitor.yaml
+  - istio-servicemonitor.yaml
+  - istio-sidecar-servicemonitor.yaml
+  - online-boutique-servicemonitor.yaml
+  - vault-servicemonitor.yaml
