@@ -6,10 +6,6 @@ namespace: defectdojo
 resources:
   # External Secrets for credential management
   - defectdojo-external-secret.yaml
-  - defectdojo-secret.yaml
-  - defectdojo-redis-secret.yaml
-  # Istio configuration
-  - defectdojo-virtual-service.yaml
 
 helmCharts:
   - name: defectdojo
