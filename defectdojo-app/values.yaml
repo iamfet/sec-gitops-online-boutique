@@ -1,5 +1,6 @@
 # DefectDojo Configuration
 createSecret: false
+existingSecret: defectdojo-secrets
 
 # Application settings
 host: defectdojo.fetdevops.com
