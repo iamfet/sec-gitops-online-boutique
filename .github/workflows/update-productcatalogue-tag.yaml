@@ -1,0 +1,35 @@
+name: Update Product Catalog Service Tag
+
+on:
+  repository_dispatch:
+    types: [update-productcatalog-tag]
+
+jobs:
+  update-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+            token: ${{ secrets.PAT_TOKEN }}
+
+      - name: yq - portable yaml processor
+        uses: mikefarah/yq@v4.45.4
+        with:
+          cmd: yq --version
+
+      - name: Update productcatalogue newTag
+        run: |
+          yq -i '
+            (.images[] | select(.name == "productcatalogservice-image") | .newTag) = env(NEW_TAG)
+          ' overlays/dev/kustomization.yaml
+        env:
+          NEW_TAG: ${{ github.event.client_payload.new_tag }}
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "${{ secrets.USER_EMAIL }}"
+          git config --local user.name "${{ secrets.USER_NAME }}"
+          git add overlays/dev/kustomization.yaml
+          git commit -m "feat: update productcatalogservice tag to v${{ github.event.client_payload.new_tag }}"
+          git push
