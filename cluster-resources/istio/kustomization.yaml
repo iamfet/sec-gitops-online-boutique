@@ -5,4 +5,4 @@ resources:
   - defectdojo-authorization-policy.yaml
   - frontend-authorization-policy.yaml
   - gateway.yaml
-  - onlineboutique-peer-authentication
+  - online-boutique-peer-authentication.yaml
