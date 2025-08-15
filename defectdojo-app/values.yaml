@@ -1,6 +1,6 @@
 # DefectDojo Configuration
 createSecret: false
-existingSecret: defectdojo-secrets
+existingSecret: defectdojo
 
 # Application settings
 host: defectdojo.fetdevops.com
@@ -41,7 +41,7 @@ postgresql:
   auth:
     username: defectdojo
     database: defectdojo
-    existingSecret: defectdojo-secrets
+    existingSecret: defectdojo
     secretKeys:
       adminPasswordKey: DD_DATABASE_PASSWORD
       userPasswordKey: DD_DATABASE_PASSWORD
@@ -63,7 +63,7 @@ redis:
   enabled: true
   auth:
     enabled: true
-    existingSecret: defectdojo-secrets
+    existingSecret: defectdojo
     existingSecretPasswordKey: DD_REDIS_PASSWORD
   master:
     persistence:
@@ -86,7 +86,7 @@ celery:
   brokerPort: 6379
   brokerDb: 0
   brokerPasswordSecret:
-    name: defectdojo-secrets
+    name: defectdojo
     key: DD_REDIS_PASSWORD
   beat:
     enabled: true
