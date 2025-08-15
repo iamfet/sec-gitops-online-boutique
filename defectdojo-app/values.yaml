@@ -80,6 +80,13 @@ redis:
 # Celery configuration - Personal project sizing
 celery:
   broker: redis
+  # Use environment variable approach to avoid URL parsing issues
+  brokerHost: defectdojo-redis-master
+  brokerPort: 6379
+  brokerDb: 0
+  brokerPasswordSecret:
+    name: defectdojo-secrets
+    key: DD_REDIS_PASSWORD
   beat:
     enabled: true
     resources:
