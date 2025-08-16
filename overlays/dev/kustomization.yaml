@@ -4,7 +4,6 @@ namespace: online-boutique
 resources:
   - ../../base
   - ../../online-boutique-config
-
 images:
   - name: adservice-image
     newName: iamfet/adservice
@@ -29,7 +28,7 @@ images:
     newTag: v15797358403
   - name: productcatalogservice-image
     newName: iamfet/productcatalogservice
-    newTag: v15799764690
+    newTag: v17010346530
   - name: recommendationservice-image
     newName: iamfet/recommendationservice
     newTag: v15797358403
