@@ -28,7 +28,7 @@ images:
     newTag: v15797358403
   - name: productcatalogservice-image
     newName: iamfet/productcatalogservice
-    newTag: v17107647218
+    newTag: v17108807118
   - name: recommendationservice-image
     newName: iamfet/recommendationservice
     newTag: v15797358403
