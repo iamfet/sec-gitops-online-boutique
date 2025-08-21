@@ -131,6 +131,15 @@ This repository implements a comprehensive multi-layer security architecture wit
 - **Gateway Security**: Centralized ingress with SSL/TLS termination
 - **VirtualServices**: Secure routing for ArgoCD, DefectDojo, Grafana, and Frontend
 
+#### VirtualServices and Exposed Endpoints
+
+| Service | VirtualService | Domain | Purpose |
+|---------|----------------|--------|----------|
+| **ArgoCD** | `argocd-virtual-service` | `argocd.fetdevops.com` | GitOps deployment management UI |
+| **DefectDojo** | `defectdojo-virtual-service` | `defectdojo.fetdevops.com` | Vulnerability management platform |
+| **Grafana** | `grafana-virtual-service` | `grafana.fetdevops.com` | Monitoring dashboards and visualization |
+| **Frontend** | `frontend-virtual-service` | `online.fetdevops.com` | Online Boutique application frontend |
+
 ### Secret Management Security
 
 #### Vault Integration
@@ -281,11 +290,6 @@ Each environment can override:
 - **ArgoCD Metrics**: Deployment and sync status
 - **Application Metrics**: Custom business metrics
 
-### Logging
-- **Fluent Bit**: Log collection and forwarding
-- **CloudWatch**: Centralized log storage
-- **Structured Logging**: JSON format for better parsing
-
 ### Tracing
 - **Jaeger**: Distributed tracing via Istio
 - **OpenTelemetry**: Instrumentation and trace collection
@@ -323,9 +327,7 @@ kubectl apply --dry-run=client -f <(kustomize build cluster-resources)
 
 | Workflow | Trigger | Purpose |
 |----------|---------|----------|
-| **Update Product Catalog** | Repository dispatch | Automated productcatalogservice image tag updates |
-| **Validate Manifests** | Pull request | YAML and Kubernetes validation |
-| **Security Scan** | Push to main | Policy and configuration scanning |
+| **Update Product Catalog Service Tag** | Repository dispatch (`update-productcatalog-tag`) | Automated productcatalogservice image tag updates |
 
 ### Required Secrets
 
