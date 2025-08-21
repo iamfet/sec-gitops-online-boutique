@@ -64,10 +64,10 @@ Application CI/CD → Image Build → Repository Dispatch → Image Tag Update �
 | Application | Path | Sync Policy | Purpose |
 |-------------|------|-------------|----------|
 | **online-boutique** | `overlays/dev` | Automatic | Main application deployment |
-| **defectdojo** | `defectdojo-app/` | Manual | Vulnerability management platform |
+| **defectdojo** | `defectdojo-app/` | Automatic | Vulnerability management platform |
 | **cluster-resources** | `cluster-resources/` | Automatic | Infrastructure and policy management |
 
-### Automated Image Updates
+### Automated Image Updates via GitHub Actions
 
 1. **Trigger**: Repository dispatch from application CI/CD pipeline
 2. **Update**: GitHub Actions workflow updates image tags in Kustomize files
