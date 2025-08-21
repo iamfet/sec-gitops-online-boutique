@@ -1,6 +1,6 @@
 # Secure Online Boutique - GitOps Repository
 
-GitOps deployment repository for the [Secure Online Boutique application](https://github.com/iamfet/sec-online-boutique-appliation) using ArgoCD, Kustomize, and automated image tag updates. This repository serves as the single source of truth for Kubernetes deployments across multiple environments and configures cluster resources including ArgoCD applications, monitoring stack, network policies, and OPA Gatekeeper policiesSecure Online Boutique application.
+GitOps deployment repository for the [Secure Online Boutique application](https://github.com/iamfet/sec-online-boutique-appliation) using ArgoCD, Kustomize, and automated image tag updates. This repository serves as the single source of truth for Kubernetes deployments and configures cluster resources including ArgoCD applications, monitoring stack, network policies, and OPA Gatekeeper policies.
 
 ## ✨ Features
 
@@ -9,8 +9,8 @@ GitOps deployment repository for the [Secure Online Boutique application](https:
 - **Automated Updates**: Image tag updates via GitHub Actions
 - **Policy Enforcement**: Open Policy Agent (OPA) Gatekeeper policies
 - **Security-First**: Multi-layer security with policy enforcement and secret management
-- **Security Controls**: Network policies and resource quotas
-- **Observability**: Monitoring and logging configurations
+- **Service Mesh**: Istio-based traffic management and mTLS encryption
+- **Observability**: Prometheus metrics and Grafana dashboards
 
 ## 🛠️ Tools and Technologies
 
@@ -29,27 +29,26 @@ GitOps deployment repository for the [Secure Online Boutique application](https:
 ## 📁 Repository Structure
 
 ```
-├── base/                  # Base Kustomize configurations
+├── base/                     # Base Kustomize configurations
 │   ├── kustomization.yaml
-│   └── microservices/     # Individual service manifests
-│       ├── adservice/
-│       ├── cartservice/
-│       ├── frontend/
-│       └── ...
-├── overlays/              # Environment-specific overlays
-│   └── dev/              # Development environment
-├── cluster-resources/     # Cluster-wide infrastructure
-│   ├── argocd/           # ArgoCD VirtualService configuration
-│   ├── cert-manager/     # SSL certificates and cluster issuer
-│   ├── external-secret/  # Vault cluster store configuration
-│   ├── grafana/          # Grafana dashboards and VirtualService
-│   ├── istio/            # Gateway, authorization policies, peer auth
-│   ├── opa-gatekeeper/   # Security constraint templates and policies
-│   ├── prometheus/       # ServiceMonitors for all components
-│   └── vault/            # Vault initialization job
-├── defectdojo-app/        # DefectDojo vulnerability management
-├── online-boutique-config/ # Application-specific configuration
-└── .github/workflows/     # Automation workflows
+│   ├── adservice.yaml
+│   ├── cartservice.yaml
+│   ├── frontend.yaml
+│   └── ...                   # All 11 microservice manifests
+├── overlays/                 # Environment-specific overlays
+│   └── dev/                  # Development environment
+├── cluster-resources/        # Cluster-wide infrastructure
+│   ├── argocd/               # ArgoCD VirtualService configuration
+│   ├── cert-manager/         # SSL certificates and cluster issuer
+│   ├── external-secret/      # Vault cluster store configuration
+│   ├── grafana/              # Grafana dashboards and VirtualService
+│   ├── istio/                # Gateway, authorization policies, peer auth
+│   ├── opa-gatekeeper/       # Security constraint templates and policies
+│   ├── prometheus/           # ServiceMonitors for all components
+│   └── vault/                # Vault initialization job
+├── defectdojo-app/           # DefectDojo vulnerability management
+├── online-boutique-config/   # Application-specific configuration
+└── .github/workflows/        # Automation workflows
 ```
 
 ## 🔄 GitOps Workflow
@@ -211,6 +210,22 @@ redis:
 #### Access Control
 - **GitHub Secrets**: Secure credential management for automation workflows
 - **Repository Dispatch**: Controlled image update mechanism from CI/CD pipelines
+- **Branch Protection**: Peer review requirements for configuration changesitoring
+- **Prometheus ServiceMonitors**: Security metrics collection for all components
+- **Grafana Dashboards**: Security posture visualization
+- **Audit Logging**: All configuration changes tracked via Git history
+
+### GitOps Security
+
+#### Infrastructure as Code Security
+- **Immutable Infrastructure**: All changes version-controlled and auditable
+- **Audit Trail**: Complete deployment history via Git commits
+- **Rollback Capability**: Quick reversion to known-good configurations
+- **Automated Updates**: Secure image tag updates via repository dispatch
+
+#### Access Control
+- **GitHub Secrets**: Secure credential management for automation workflows
+- **Repository Dispatch**: Controlled image update mechanism from CI/CD pipelines
 - **Branch Protection**: Peer review requirements for configuration changes
 
 ## 🚀 Deployment
@@ -267,20 +282,14 @@ on:
     types: [update-image]
 ```
 
-### Environment Promotion
+### Configuration Management
 
-1. **Development**: Automatic deployment on image updates
-2. **Staging**: Manual promotion via ArgoCD UI or CLI
-3. **Production**: Manual promotion with approval process
-
-### Configuration Overrides
-
-Each environment can override:
-- **Resource limits and requests**
-- **Replica counts**
-- **Environment variables**
-- **Ingress configurations**
-- **Monitoring settings**
+The development environment configuration includes:
+- **Resource limits and requests**: Optimized for development workloads
+- **Replica counts**: Single instance per service
+- **Image tags**: Automatically updated via GitHub Actions
+- **Networking**: Istio VirtualServices for secure routing
+- **Secrets**: Vault-managed credentials via External Secrets Operator
 
 ## 📊 Monitoring and Observability
 
